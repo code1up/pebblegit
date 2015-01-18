@@ -1,16 +1,15 @@
 {
     "appKeys": {},
     "capabilities": [
-        ""
+        "configurable"
     ],
     "companyName": "dev.code1up@googlemail.com",
-    "longName": "pebblegit",
+    "longName": "Pebble GIT",
     "projectType": "pebblejs",
     "resources": {
         "media": [
             {
                 "file": "images/menu_icon.png",
-                "menuIcon": true,
                 "name": "IMAGE_MENU_ICON",
                 "type": "png"
             },
@@ -28,6 +27,12 @@
                 "file": "fonts/UbuntuMono-Regular.ttf",
                 "name": "MONO_FONT_14",
                 "type": "font"
+            },
+            {
+                "file": "images/GitHub-Mark-28px.png",
+                "menuIcon": true,
+                "name": "IMAGES_GITHUB_MARK_28PX_PNG",
+                "type": "png"
             }
         ]
     },
@@ -36,6 +41,6 @@
     "versionCode": 1,
     "versionLabel": "1.0",
     "watchapp": {
-        "watchface": false
+        "watchface": true
     }
 }
