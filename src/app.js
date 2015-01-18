@@ -1,58 +1,54 @@
-/**
- * Welcome to Pebble.js!
- *
- * This is where you write your app.
- */
+var UI = require("ui");
+var Vector2 = require("vector2");
+var ajax = require("ajax");
 
-var UI = require('ui');
-var Vector2 = require('vector2');
+var onRefresh = function (commits) {
+  var items = [];
 
+  commits.forEach(function (each) {
+    items.push({
+      title: each.commit.author.name,
+      subtitle: each.commit.message
+    });
+  });
+
+  var menu = new UI.Menu({
+    sections: [{
+      items: items
+    }]
+  });
+
+  menu.on("select", function(e) {
+    console.log("Selected item #" + e.itemIndex + " of section #" + e.sectionIndex);
+    console.log("The item is titled '" + e.item.title + "'");
+  });
+
+  menu.show();
+};
+
+var onError = function (error) {
+  console.log("Error: " + error);
+};
+
+var refresh = function (onSuccess, onFail) {
+    var options = {
+      url: "https://api.github.com/repos/valtech-nas/beta/commits",
+      type: "json",
+      headers: {
+        "user-agent": "pebble"
+      }
+    };
+
+    ajax(options, onSuccess, onFail);
+};
+  
 var main = new UI.Card({
-  title: 'Pebble.js',
-  icon: 'images/menu_icon.png',
-  subtitle: 'Hello World!',
-  body: 'Press any button.'
+  title: "Pebble GIT",
+  icon: "images/GitHub-Mark-28px.png",
+  subtitle: "<SUBTITLE>",
+  body: "<BODY>"
 });
 
 main.show();
 
-main.on('click', 'up', function(e) {
-  var menu = new UI.Menu({
-    sections: [{
-      items: [{
-        title: 'Pebble.js',
-        icon: 'images/menu_icon.png',
-        subtitle: 'Can do Menus'
-      }, {
-        title: 'Second Item',
-        subtitle: 'Subtitle Text'
-      }]
-    }]
-  });
-  menu.on('select', function(e) {
-    console.log('Selected item #' + e.itemIndex + ' of section #' + e.sectionIndex);
-    console.log('The item is titled "' + e.item.title + '"');
-  });
-  menu.show();
-});
-
-main.on('click', 'select', function(e) {
-  var wind = new UI.Window();
-  var textfield = new UI.Text({
-    position: new Vector2(0, 50),
-    size: new Vector2(144, 30),
-    font: 'gothic-24-bold',
-    text: 'Text Anywhere!',
-    textAlign: 'center'
-  });
-  wind.add(textfield);
-  wind.show();
-});
-
-main.on('click', 'down', function(e) {
-  var card = new UI.Card();
-  card.title('A Card');
-  card.subtitle('Is a Window');
-  card.body('The simplest window type in Pebble.js.');
-  card.show();
-});
+main.on("click", "up", refresh);
