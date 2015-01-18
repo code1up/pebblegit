@@ -2,7 +2,7 @@ var UI = require("ui");
 var Vector2 = require("vector2");
 var ajax = require("ajax");
 
-var onRefresh = function (commits) {
+var onSuccess = function (commits) {
   var items = [];
 
   commits.forEach(function (each) {
@@ -26,11 +26,11 @@ var onRefresh = function (commits) {
   menu.show();
 };
 
-var onError = function (error) {
+var onFail = function (error) {
   console.log("Error: " + error);
 };
 
-var refresh = function (onSuccess, onFail) {
+var refresh = function () {
     var options = {
       url: "https://api.github.com/repos/valtech-nas/beta/commits",
       type: "json",
